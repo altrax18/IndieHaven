@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndieHaven | Descubre Gemas Ocultas</title>
+    <meta name="description"
+        content="La mejor tienda de videojuegos indie. Apoya a pequeños desarrolladores y descubre juegos únicos.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons (using CDN for simplicity) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Colors */
+            --bg-dark: #0a0a0a;
+            --bg-card: #161616;
+            --bg-card-hover: #1f1f1f;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+
+            --accent-primary: #00ff88;
+            /* Neon Green */
+            --accent-secondary: #ff00cc;
+            /* Neon Pink */
+            --accent-blue: #00ccff;
+            /* Neon Blue */
+
+            --gradient-main: linear-gradient(135deg, var(--accent-primary), var(--accent-blue));
+
+            /* Spacing */
+            --gap-sm: 0.5rem;
+            --gap-md: 1rem;
+            --gap-lg: 2rem;
+            --gap-xl: 4rem;
+
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
+
+            /* Setup */
+            --container-width: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 var(--gap-md);
+        }
+
+        /* Utilities */
+        .text-accent {
+            color: var(--accent-primary);
+        }
+
+        .text-gradient {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--gap-md);
+        }
+
+        .tag-accent {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-primary);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        /* Base Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--gap-sm);
+            padding: 10px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: #00e078;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-primary);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--gap-lg);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--gap-md);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 100px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus-within {
+            border-color: var(--accent-primary);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            margin-left: 8px;
+            outline: none;
+            width: 150px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            position: relative;
+            padding: 5px;
+        }
+
+        .icon-btn .badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: var(--accent-secondary);
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(0, 255, 136, 0.15) 0%, rgba(10, 10, 10, 1) 70%);
+            z-index: -1;
+        }
+
+        /* You would normally put a real image here */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
+            z-index: -2;
+            filter: saturate(1.2) contrast(1.1);
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: var(--gap-md);
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .hero-desc {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: var(--gap-lg);
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: var(--gap-lg);
+            margin-bottom: var(--gap-lg);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .hero-meta i {
+            color: var(--accent-primary);
+            margin-right: 5px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--gap-md);
+        }
+
+        /* Section Common */
+        .section {
+            padding: var(--gap-xl) 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: var(--gap-lg);
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+        }
+
+        .view-all {
+            color: var(--accent-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Game Grid */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--gap-lg);
+        }
+
+        .game-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.1);
+            background: var(--bg-card-hover);
+        }
+
+        .card-image {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .game-card:hover .img-placeholder {
+            transform: scale(1.05);
+        }
+
+        .price-tag {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .sale-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--accent-secondary);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .card-content {
+            padding: var(--gap-md);
+        }
+
+        .card-content h3 {
+            margin-bottom: 4px;
+            font-size: 1.1rem;
+        }
+
+        .dev-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: var(--gap-md);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: var(--gap-md);
+        }
+
+        .genre {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            color: black;
+        }
+
+        /* Developer Spotlight */
+        .dev-spotlight {
+            background: linear-gradient(to right, rgba(20, 20, 20, 1), rgba(10, 10, 10, 0));
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .spotlight-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--gap-xl);
+            align-items: center;
+        }
+
+        .dev-img-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: #222;
+            border-radius: var(--radius-lg);
+            background-image: repeating-linear-gradient(45deg, #222 0px, #222 10px, #252525 10px, #252525 20px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #050505;
+            padding: var(--gap-xl) 0 var(--gap-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+            gap: var(--gap-xl);
+            margin-bottom: var(--gap-xl);
+        }
+
+        .footer-brand h3 {
+            margin-bottom: var(--gap-md);
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            max-width: 300px;
+        }
+
+        .footer-links h4,
+        .footer-newsletter h4 {
+            margin-bottom: var(--gap-md);
+            font-size: 1.1rem;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .input-group {
+            display: flex;
+            gap: var(--gap-sm);
+        }
+
+        .input-group input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            color: white;
+            flex: 1;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-primary);
+            outline: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding-top: var(--gap-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-bottom i {
+            color: red;
+        }
+
+        /* Responsive */
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--gap-xl);
+            align-items: center;
+        }
+
+        .mission-vision {
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap-md);
+        }
+
+        .mv-card {
+            background: var(--bg-card);
+            padding: var(--gap-lg);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mv-card i {
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: var(--gap-md);
+        }
+
+        .mv-card h3 {
+            margin-bottom: var(--gap-sm);
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: var(--gap-md);
+            color: white;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--gap-lg);
+        }
+
+        .blog-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+        }
+
+        .blog-img {
+            height: 200px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .blog-content {
+            padding: var(--gap-lg);
+        }
+
+        .blog-content .date {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: block;
+            margin-bottom: var(--gap-sm);
+        }
+
+        .blog-content h3 {
+            margin-bottom: var(--gap-sm);
+            line-height: 1.4;
+            font-size: 1.2rem;
+        }
+
+        .read-more {
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-top: var(--gap-md);
+            display: inline-block;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: var(--gap-xl);
+            align-items: end;
+            /* Align to bottom for better look with form */
+        }
+
+        .contact-info ul {
+            margin-top: var(--gap-lg);
+        }
+
+        .contact-info li {
+            margin-bottom: var(--gap-md);
+            display: flex;
+            align-items: center;
+            gap: var(--gap-md);
+            font-size: 1.1rem;
+        }
+
+        .contact-info i {
+            color: var(--accent-secondary);
+            width: 24px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            padding: var(--gap-xl);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: var(--gap-lg);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--gap-sm);
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-sm);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+
+            .nav-links,
+            .nav-actions .btn {
+                display: none;
+                /* Simplify for mobile for now or add hamburger later */
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .spotlight-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: var(--gap-lg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Indie<span class="text-accent">Haven</span></a>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Inicio</a>
+                <a href="#about" class="nav-link">Nosotros</a>
+                <a href="#games" class="nav-link">Juegos</a>
+                <a href="#blog" class="nav-link">Blog</a>
+                <a href="#contact" class="nav-link">Contacto</a>
+            </div>
+            <div class="nav-actions">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Buscar juegos...">
+                </div>
+                <button class="icon-btn cart-btn">
+                    <i class="fa-solid fa-shopping-cart"></i>
+                    <span class="badge">0</span>
+                </button>
+                <button class="btn btn-secondary">Login</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="featured">
+        <div class="hero-bg-overlay"></div>
+        <div class="container hero-content">
+            <span class="tag">Destacado de la Semana</span>
+            <h1 class="hero-title">Neon <br> Horizon</h1>
+            <p class="hero-desc">Una aventura cyberpunk pixel-art donde cada decisión cambia el código del juego.
+                Desarrollado por un equipo de 3 personas.</p>
+            <div class="hero-meta">
+                <span class="dev-name"><i class="fa-solid fa-code"></i> PixelForge Studio</span>
+                <span class="rating"><i class="fa-solid fa-star"></i> 4.9/5</span>
+            </div>
+            <div class="hero-actions">
+                <button class="btn btn-primary">Comprar Ahora - 14.99€</button>
+                <button class="btn btn-outline"><i class="fa-solid fa-play"></i> Ver Trailer</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- About Us Section -->
+        <section class="section" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Sobre Nosotros</h2>
+                </div>
+                <div class="about-content">
+                    <div class="mission-vision">
+                        <div class="mv-card">
+                            <i class="fa-solid fa-rocket"></i>
+                            <h3>Misión</h3>
+                            <p>Impulsar a los pequeños desarrolladores proporcionando una plataforma justa y visible
+                                para sus obras maestras.</p>
+                        </div>
+                        <div class="mv-card">
+                            <i class="fa-solid fa-eye"></i>
+                            <h3>Visión</h3>
+                            <p>Convertirnos en el ecosistema número uno para el descubrimiento de videojuegos
+                                independientes en el mundo hispano.</p>
+                        </div>
+                    </div>
+                    <div class="about-text">
+                        <h3>¿Quiénes Somos?</h3>
+                        <p>IndieHaven nació de la pasión por los pixels y las grandes historias. Somos un equipo
+                            dedicado a curar los mejores juegos que a menudo pasan desapercibidos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Arrivals / Games -->
+        <section class="section" id="games">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Novedades Indie</h2>
+                    <a href="#" class="view-all">Ver todos <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <div class="game-grid">
+                    <!-- Cards will be populated here -->
+                    <article class="game-card">
+                        <div class="card-image">
+                            <!-- Placeholder for now -->
+                            <div class="img-placeholder" style="background: linear-gradient(45deg, #ff00cc, #333);">
+                            </div>
+                            <span class="price-tag">9.99€</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Starlight Drifter</h3>
+                            <p class="dev-label">Cosmic Soft</p>
+                            <div class="card-footer">
+                                <span class="genre">RPG</span>
+                                <button class="btn-icon"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="game-card">
+                        <div class="card-image">
+                            <div class="img-placeholder" style="background: linear-gradient(45deg, #00ff88, #333);">
+                            </div>
+                            <span class="price-tag">19.99€</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Forest Spirit</h3>
+                            <p class="dev-label">Green Leaf Games</p>
+                            <div class="card-footer">
+                                <span class="genre">Adventure</span>
+                                <button class="btn-icon"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="game-card">
+                        <div class="card-image">
+                            <div class="img-placeholder" style="background: linear-gradient(45deg, #00ccff, #333);">
+                            </div>
+                            <span class="sale-badge">-20%</span>
+                            <span class="price-tag">12.00€</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Cyber Punked</h3>
+                            <p class="dev-label">Glitch Corp</p>
+                            <div class="card-footer">
+                                <span class="genre">Action</span>
+                                <button class="btn-icon"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Developer Spotlight -->
+        <section class="section dev-spotlight" id="devs">
+            <div class="container spotlight-grid">
+                <div class="spotlight-content">
+                    <span class="tag tag-accent">Desarrollador del Mes</span>
+                    <h2>Conoce a <span class="text-gradient">Tiny Titans</span></h2>
+                    <p>Dos hermanos trabajando desde un garaje que crearon el éxito viral "Mushroom Wars". Descubre su
+                        historia y apoya su próximo proyecto.</p>
+                    <button class="btn btn-primary">Ver Perfil</button>
+                </div>
+                <div class="spotlight-image">
+                    <!-- Placeholder -->
+                    <div class="dev-img-placeholder"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section class="section" id="blog">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Blog</h2>
+                    <a href="#" class="view-all">Ver articulos <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <div class="blog-grid">
+                    <article class="blog-card">
+                        <div class="blog-img" style="background: linear-gradient(135deg, #222, #444);"></div>
+                        <div class="blog-content">
+                            <span class="date">17 Ene, 2026</span>
+                            <h3>El renacer del Pixel Art</h3>
+                            <p>Cómo los desarrolladores modernos están redefiniendo la estética retro.</p>
+                            <a href="#" class="read-more">Leer más</a>
+                        </div>
+                    </article>
+                    <article class="blog-card">
+                        <div class="blog-img" style="background: linear-gradient(135deg, #111, #333);"></div>
+                        <div class="blog-content">
+                            <span class="date">10 Ene, 2026</span>
+                            <h3>Entrevista: Tiny Titans</h3>
+                            <p>Hablamos con los creadores de 'Mushroom Wars' sobre su éxito.</p>
+                            <a href="#" class="read-more">Leer más</a>
+                        </div>
+                    </article>
+                    <article class="blog-card">
+                        <div class="blog-img" style="background: linear-gradient(135deg, #333, #555);"></div>
+                        <div class="blog-content">
+                            <span class="date">05 Ene, 2026</span>
+                            <h3>Guía para publicar tu juego</h3>
+                            <p>Consejos esenciales para desarrolladores noveles en IndieHaven.</p>
+                            <a href="#" class="read-more">Leer más</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section" id="contact">
+            <div class="container contact-container">
+                <div class="contact-info">
+                    <h2>Contacto</h2>
+                    <p>¿Tienes preguntas o quieres publicar tu juego? Escríbenos.</p>
+                    <ul class="contact-details">
+                        <li><i class="fa-solid fa-envelope"></i> hola@indiehaven.com</li>
+                        <li><i class="fa-solid fa-phone"></i> +34 900 123 456</li>
+                        <li><i class="fa-solid fa-location-dot"></i> Madrid, España</li>
+                    </ul>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" id="name" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="tucorreo@ejemplo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensaje</label>
+                        <textarea id="message" rows="5" placeholder="¿En qué podemos ayudarte?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h3>Indie<span class="text-accent">Haven</span></h3>
+                <p>Apoyando sueños, un pixel a la vez.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Explorar</h4>
+                <ul>
+                    <li><a href="#">Catálogo</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="#">Comunidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Para Devs</h4>
+                <ul>
+                    <li><a href="#">Publicar Juego</a></li>
+                    <li><a href="#">Recursos</a></li>
+                    <li><a href="#">Soporte</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h4>Newsletter</h4>
+                <div class="input-group">
+                    <input type="email" placeholder="Tu email">
+                    <button class="btn btn-primary">Suscribir</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 IndieHaven. Hecho con <i class="fa-solid fa-heart"></i> para gamers.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Elements
+            const cartBtn = document.querySelector('.cart-btn');
+            const badge = cartBtn.querySelector('.badge');
+            const addToCartBtns = document.querySelectorAll('.fa-plus, .btn-primary'); // Generic selector
+            let cartCount = 0;
+
+            // Navbar Scroll Effect
+            const navbar = document.querySelector('.navbar');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+                    navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
+                } else {
+                    navbar.style.background = 'rgba(10, 10, 10, 0.85)';
+                    navbar.style.boxShadow = 'none';
+                }
+            });
+
+            // Simple Cart Interaction
+            // Note: This matches both the specific 'plus' icons and the main 'Buy' buttons for demo purposes
+            document.querySelectorAll('button').forEach(btn => {
+                if (btn.textContent.includes('Comprar') || btn.querySelector('.fa-plus')) {
+                    btn.addEventListener('click', (e) => {
+                        // Animation feedback
+                        const originalContent = btn.innerHTML;
+
+                        if (btn.classList.contains('btn-primary')) {
+                            btn.innerHTML = '<i class="fa-solid fa-check"></i> Añadido';
+                            setTimeout(() => {
+                                btn.innerHTML = originalContent;
+                            }, 2000);
+                        } else {
+                            btn.style.transform = 'scale(1.2) rotate(10deg)';
+                            setTimeout(() => btn.style.transform = 'none', 200);
+                        }
+
+                        // Update Badge
+                        cartCount++;
+                        badge.textContent = cartCount;
+                        badge.style.transform = 'scale(1.5)';
+                        setTimeout(() => badge.style.transform = 'scale(1)', 200);
+                    });
+                }
+            });
+
+            // Search Interaction
+            const searchInput = document.querySelector('.search-bar input');
+            const searchIcon = document.querySelector('.search-bar i');
+
+            searchInput.addEventListener('focus', () => {
+                searchIcon.style.color = 'var(--accent-primary)';
+            });
+            searchInput.addEventListener('blur', () => {
+                searchIcon.style.color = 'inherit';
+            });
+
+            // Contact Form
+            const contactForm = document.querySelector('.contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const btn = contactForm.querySelector('button');
+                    const originalContent = btn.innerHTML;
+
+                    btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviando...';
+                    btn.style.opacity = '0.7';
+
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="fa-solid fa-check"></i> Mensaje Enviado';
+                        btn.style.background = 'var(--accent-primary)';
+                        btn.style.color = 'black';
+                        contactForm.reset();
+
+                        setTimeout(() => {
+                            btn.innerHTML = originalContent;
+                            btn.removeAttribute('style');
+                        }, 3000);
+                    }, 1500);
+                });
+            }
+
+            console.log('IndieHaven initialized properly.');
+        });
+    </script>
+</body>
+
+</html>
